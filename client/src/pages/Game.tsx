@@ -1,6 +1,7 @@
 import {useEffect, useState, useRef} from 'react';
 import Countdown from '../components/Countdown';
 import { useGlobalContext } from '../Context';
+import URL from '../URL';
 
 // GAME //
 const Game = () => {
@@ -23,7 +24,7 @@ const Game = () => {
     const getWord = async() => {
         try {
             const wordLength = Math.min(Math.floor(3+(score/5)), 6);
-            const response = await fetch("http://localhost:5067/api/Word/GetWord/"+wordLength.toString());
+            const response = await fetch(URL+"/api/Word/GetWord/"+wordLength.toString());
             const jsonResponse = await response.json();
             const wordList = jsonResponse.data;
             
@@ -67,7 +68,7 @@ const Game = () => {
     const startGame = () => {
         setScore(0);
         setTempScore(0);
-        setCounter(200);
+        setCounter(500);
         // Remove counter here and move after word is loaded
         setGame({...game, play:true, msg:""});
     }

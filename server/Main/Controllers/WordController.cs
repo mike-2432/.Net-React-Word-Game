@@ -27,5 +27,11 @@ namespace server.Main.Controllers
             var response = await _iWordService.GetNewWord(length);
             return Ok(response);
         }
+
+        [HttpGet("Test")]
+        public ActionResult<string> TestConnection()
+        {
+            return Ok("test message");
+        }
     }
 }

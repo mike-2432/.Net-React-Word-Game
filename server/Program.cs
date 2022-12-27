@@ -18,7 +18,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IWordService, WordService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IScoreService, ScoreService>();
-builder.Services.AddAutoMapper(typeof(Program).Assembly);
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddCors(options =>
 {

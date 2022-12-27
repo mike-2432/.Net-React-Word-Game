@@ -1,0 +1,51 @@
+version: "3.8"
+
+# =====================
+# Services
+# =====================
+services:
+  #NGINX Reverse Proxy Container
+  reverse-proxy:
+    image: nginx:1.23.2
+    container_name: reverse-proxy
+    depends_on:
+      - frontend
+      - backend
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/certs:/etc/nginx/certs
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      - word-net
+
+  # Front-end React Container
+  frontend:
+    container_name: frontend
+    build:
+      context: ./client
+    ports: 
+      - 3000:3000
+    restart: on-failure
+    networks:
+      - word-net
+
+  # Back-end .NET Container
+  backend:
+    container_name: backend
+    ports:
+      - 5000:5000
+    build:
+      context: ./server
+    restart: on-failure
+    networks:
+      - word-net
+
+# ======================
+# Docker Network
+# ======================
+networks:
+  word-net:
+    name: word-net
+    external: false
