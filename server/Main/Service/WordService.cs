@@ -16,7 +16,6 @@ namespace logicServer.Main.Service
             _context = context;
         }
 
-        // ENDPOINTS //
         public async Task<ServiceResponse<string>> GetNewWord(int wordlength)
         {
             var serviceResponse = new ServiceResponse<string>();
