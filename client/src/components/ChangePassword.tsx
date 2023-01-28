@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useGlobalContext } from '../Context';
 import URL from '../URL';
 
 // CHANGE PASSWORD COMPONENT //
-const ChangePassword = ({email}:any) => {
+const ChangePassword = () => {
 
     // STATES //
     const { jwt } = useGlobalContext();
