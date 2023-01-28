@@ -7,8 +7,8 @@ import ChangePass from '../components/ChangePassword';
 // USER PAGE //
 const User = () => {
     const navigate = useNavigate();
-    const [ username, setUsername] = useState("");
-    const [ email, setEmail ] = useState("");
+    const [ username, setUsername] = useState<string>("");
+    const [ email, setEmail ] = useState<string>("");
     const { jwt, setJwt, classicHS, setClassicHS } = useGlobalContext();
 
     // FUNCTIONS //
@@ -49,7 +49,7 @@ const User = () => {
             </div>
 
             <div className="user-page-change-pass">
-                <ChangePass email={email}/>
+                <ChangePass/>
             </div>                                 
         </div>
     )

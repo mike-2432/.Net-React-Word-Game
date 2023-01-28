@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import Countdown from '../components/Countdown';
 import { useGlobalContext } from '../Context';
 import URL from '../URL';
@@ -10,15 +10,19 @@ const Game = () => {
     const TIME = 1000;
     const tileRef = useRef<HTMLDivElement>(null!);
 
-    const [game, setGame]:Array<any> = useState( {play:false, msg:""} );
-    const [word, setWord]:Array<any> = useState([[]]);
-    const [usedWords, setUsedWords]:Array<any> = useState([]);
-    const [options, setOptions]:Array<any> = useState([]);
-    const [guess, setGuess]:Array<any> = useState([]);
-    const [score, setScore]:Array<any> = useState(0);
-    const [tempScore, setTempScore]:Array<any> = useState(0);
-    const [winAnimation, setWinAnimation]:Array<any> = useState(false);
-    const [counter, setCounter] = useState(0); 
+    interface gameStatusProps {
+        play:boolean;
+        msg:string
+    }
+    const [game, setGame] = useState<gameStatusProps>( {play:false, msg:""} );
+    const [word, setWord] = useState<Array<Array<string>>>([[]]);
+    const [usedWords, setUsedWords] = useState<Array<string>>([]);
+    const [options, setOptions] = useState<Array<string>>([]);
+    const [guess, setGuess] = useState<Array<string>>([]);
+    const [score, setScore] = useState<number>(0);
+    const [tempScore, setTempScore] = useState<number>(0);
+    const [winAnimation, setWinAnimation] = useState<boolean>(false);
+    const [counter, setCounter] = useState<number>(0); 
 
     // FETCH WORD //
     const getWord = async() => {
@@ -34,13 +38,12 @@ const Game = () => {
             } else {
                 setUsedWords([...usedWords, wordList])
             }
-            const newWordList:any[] = [];
-            wordList.split(', ').map((word:any) => newWordList.push(word.toUpperCase().split('')));
+            const newWordList:Array<Array<string>> = [];
+            wordList.split(', ').map((word:string) => newWordList.push(word.toUpperCase().split('')));
             setWord(newWordList);
             setCounter(103);
             return
         } catch(err) {
-            setGame({});
             setGame({...game, play:false, msg:"Could not make a connection to the server..."});
         }        
     };
@@ -96,8 +99,8 @@ const Game = () => {
         const generateOptions = () => {
             if(word[0].length === 0) return;
             setOptions([]);
-            let newOptionsArr:Array<String> = [];
-            let originalWord:Array<String> = [...word[0]];
+            let newOptionsArr:Array<string> = [];
+            let originalWord:Array<string> = [...word[0]];
 
             while(originalWord.length > 0) {
                 const random = Math.floor(Math.random()*originalWord.length);
@@ -136,7 +139,7 @@ const Game = () => {
             window.removeEventListener('animationend', shake);
         }
     });
-    const handleKeyPress = (e:any) => {
+    const handleKeyPress = (e: KeyboardEvent) => {
         if(options.includes(e.key.toUpperCase()) && guess.length < word[0].length) {
             setGuess([...guess, e.key.toUpperCase()])
         } 
@@ -176,14 +179,14 @@ const Game = () => {
                 {/* The Game */}
                 {game.play && <>                
                     <div ref={tileRef} className="letter-boxes">
-                        {options.map((letter:String, i:any) => {
+                        {options.map((letter:String, i:number) => {
                             return <div key={i} style={{animationDelay:"calc("+i+"*50ms"}} className={`tile `+ (winAnimation===true ? `success` : ``)}>
                                     {guess[i]}
                                 </div>
                         })}
                     </div>                
                     <div className="letter-boxes">
-                        {options.map((letter:String, i:any) => {
+                        {options.map((letter:String, i:number) => {
                             return <div key={i} className={`tile`}>{options[i]}</div>
                         })}
                     </div>                

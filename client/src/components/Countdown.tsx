@@ -4,7 +4,7 @@ import {useEffect} from 'react';
 const Countdown = ({counter, setCounter, timeUp}:any) => {
     
     useEffect(() => {
-        const timer:any = counter > 0 && setInterval(() => setCounter(counter - 1), 200);
+        const timer: ReturnType<typeof setInterval> = setInterval(() => setCounter(counter - 1), 200);
         if(counter === 0) timeUp();
         return () => clearInterval(timer);
     }, [counter, setCounter, timeUp])
