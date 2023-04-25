@@ -12,4 +12,5 @@ Please click [HERE](https://20.224.32.21) for a secure connection (HTTPS). This 
 - Nginx
 
 #### About
-A simple word game with a login system made with React and .Net.
+A simple word game with a login system made with React and .Net. </br>
+The login credentials are already entered, so feel free to look around.
